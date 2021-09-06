@@ -99,3 +99,30 @@ func (*Slice) IntToSql(req []int) (query []string, args []int) {
 	}
 	return
 }
+
+func (*Slice) InStrArr(val string, arr []string) bool {
+	for i := 0; i < len(arr); i++ {
+		if val == arr[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func (*Slice) InInt64Arr(val int64, arr []int64) bool {
+	for i := 0; i < len(arr); i++ {
+		if val == arr[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func (*Slice) InIntArr(val int, arr []int) bool {
+	for i := 0; i < len(arr); i++ {
+		if val == arr[i] {
+			return true
+		}
+	}
+	return false
+}
