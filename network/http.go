@@ -50,13 +50,7 @@ func NewHttp() *Http {
 //全局设置：
 //os.Setenv("HTTP_PROXY", "http://127.0.0.1:9743")
 //os.Setenv("HTTPS_PROXY", "https://127.0.0.1:9743")
-func (obj *Http) SetCookieJar() *Http {
-	options := cookiejar.Options{}
-	jar, err := cookiejar.New(&options)
-	if err != nil {
-		obj.Errs = err
-		return obj
-	}
+func (obj *Http) SetCookieJar(jar *cookiejar.Jar) *Http {
 	obj.Client.Jar = jar
 	return obj
 }
