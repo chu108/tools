@@ -2,7 +2,7 @@ package str
 
 import (
 	"bytes"
-	"github.com/chu108/tool2/date_time"
+	"github.com/chu108/tools/config"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"regexp"
 	"sort"
@@ -90,7 +90,7 @@ func (obj *Str) ToDateStr(t string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return time.Unix(i, 0).Format(date_time.LayoutDate), nil
+	return time.Unix(i, 0).Format(config.LayoutDate), nil
 }
 
 //int字符串转时间字符串
@@ -99,7 +99,7 @@ func (obj *Str) ToTimeStr(s string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return time.Unix(i, 0).Format(date_time.LayoutTime), nil
+	return time.Unix(i, 0).Format(config.LayoutTime), nil
 }
 
 //日期字符串转时间对象
@@ -108,7 +108,7 @@ func (*Str) ToTime(s string) (time.Time, error) {
 	if err != nil {
 		return time.Time{}, err
 	}
-	return time.ParseInLocation(date_time.LayoutTime, s, loc)
+	return time.ParseInLocation(config.LayoutTime, s, loc)
 }
 
 //中文拼音排序

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/chu108/tool2/str"
+	"github.com/chu108/tools/str"
 	"os/exec"
 )
 

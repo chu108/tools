@@ -1,12 +1,10 @@
 package datetime
 
 import (
-	"github.com/chu108/tool2/number"
+	"github.com/chu108/tools/config"
+	"github.com/chu108/tools/number"
 	"time"
 )
-
-const LayoutDate = "2006-01-02"
-const LayoutTime = "2006-01-02 15:04:05"
 
 type Time struct {
 }
@@ -17,22 +15,22 @@ func NewTime() *Time {
 
 //返回年月日
 func (*Time) GetDate() string {
-	return time.Now().Format(LayoutDate)
+	return time.Now().Format(config.LayoutDate)
 }
 
 //返回年月日时分秒
 func (*Time) GetTime() string {
-	return time.Now().Format(LayoutTime)
+	return time.Now().Format(config.LayoutTime)
 }
 
 //时间戳转日期
 func (*Time) UnixToDateTime(t int64) string {
-	return time.Unix(t, 0).Format(LayoutTime)
+	return time.Unix(t, 0).Format(config.LayoutTime)
 }
 
 //日期字符串转时间戳
 func (*Time) DateTimeToUnix(t string) (int64, error) {
-	tm, err := time.Parse(t, LayoutTime)
+	tm, err := time.Parse(t, config.LayoutTime)
 	if err != nil {
 		return 0, err
 	}
@@ -41,7 +39,7 @@ func (*Time) DateTimeToUnix(t string) (int64, error) {
 
 //毫秒转日期
 func (*Time) MilliSecondToDateTime(t int64) string {
-	return time.Unix(0, t*int64(time.Millisecond)).Format(LayoutTime)
+	return time.Unix(0, t*int64(time.Millisecond)).Format(config.LayoutTime)
 }
 
 //随机睡眠指定范围毫秒

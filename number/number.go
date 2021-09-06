@@ -2,7 +2,7 @@ package number
 
 import (
 	"fmt"
-	"github.com/chu108/tool2/date_time"
+	"github.com/chu108/tools/config"
 	"math"
 	"strconv"
 	"time"
@@ -62,12 +62,12 @@ func (*Num) FloatToStr(f float64) string {
 
 //时间戳转日期字符串
 func (*Num) Int64ToDateStr(i int64) string {
-	return time.Unix(i, 0).Format(date_time.LayoutDate)
+	return time.Unix(i, 0).Format(config.LayoutDate)
 }
 
 //时间戳转时间字符串
 func (*Num) Int64ToTimeStr(i int64) string {
-	return time.Unix(i, 0).Format(date_time.LayoutTime)
+	return time.Unix(i, 0).Format(config.LayoutTime)
 }
 
 //INT最大值

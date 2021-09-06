@@ -45,6 +45,18 @@
 			"revisionTime": "2019-07-23T18:48:14Z"
 		},
 		{
+			"checksumSHA1": "f3Y7JIZH61oMmp8nphqe8Mg+XoU=",
+			"path": "golang.org/x/net/internal/socks",
+			"revision": "ca1201d0de80cfde86cb01aea620983605dfe99b",
+			"revisionTime": "2019-07-23T18:48:14Z"
+		},
+		{
+			"checksumSHA1": "28Sn0XihdqNv3MysxyRalibC3Tg=",
+			"path": "golang.org/x/net/proxy",
+			"revision": "ca1201d0de80cfde86cb01aea620983605dfe99b",
+			"revisionTime": "2019-07-23T18:48:14Z"
+		},
+		{
 			"checksumSHA1": "tqqo7DEeFCclb58XbN44WwdpWww=",
 			"path": "golang.org/x/text/encoding",
 			"revision": "342b2e1fbaa52c93f31447ad2c6abc048c63e475",
@@ -75,5 +87,5 @@
 			"revisionTime": "2018-12-15T17:52:45Z"
 		}
 	],
-	"rootPath": "github.com/chu108/tool2"
+	"rootPath": "github.com/chu108/tools"
 }

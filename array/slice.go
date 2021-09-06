@@ -1,8 +1,8 @@
 package array
 
 import (
-	"github.com/chu108/tool2/number"
-	"github.com/chu108/tool2/str"
+	"github.com/chu108/tools/number"
+	"github.com/chu108/tools/str"
 )
 
 type Slice struct {

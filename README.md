@@ -1,2 +1,2 @@
-# tool2
+# tools
 golang 常用工具函数

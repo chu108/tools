@@ -2,13 +2,18 @@ package network
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"errors"
-	"github.com/chu108/tool2/files"
+	"fmt"
+	"github.com/chu108/tools/files"
+	"golang.org/x/net/proxy"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"os"
 	"strconv"
@@ -22,24 +27,75 @@ const (
 )
 
 type Http struct {
+	Trans  *http.Transport
+	Client *http.Client
+	Errs   error
 }
 
 func NewHttp() *Http {
-	return &Http{}
+	return &Http{
+		Trans: &http.Transport{
+			TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
+			MaxIdleConns:        100,             //连接池最大连接数量
+			MaxIdleConnsPerHost: 10,              //每个host的连接池最大空闲连接数,默认2
+			TLSHandshakeTimeout: 5 * time.Second, //限制 TLS握手的时间
+		},
+		Client: &http.Client{
+			Timeout: 3 * time.Second, //超时为3秒
+		},
+	}
+}
+
+//设置cookie
+//全局设置：
+//os.Setenv("HTTP_PROXY", "http://127.0.0.1:9743")
+//os.Setenv("HTTPS_PROXY", "https://127.0.0.1:9743")
+func (obj *Http) SetCookieJar() *Http {
+	options := cookiejar.Options{}
+	jar, err := cookiejar.New(&options)
+	if err != nil {
+		obj.Errs = err
+		return obj
+	}
+	obj.Client.Jar = jar
+	return obj
+}
+
+//设置Http代理
+func (obj *Http) SetProxyHttp(ip string, port int64) *Http {
+	host := fmt.Sprintf("http://%s:%d", ip, port)
+	proxyUrl, err := url.Parse(host)
+	if err != nil {
+		obj.Errs = err
+		return obj
+	}
+	obj.Trans.Proxy = http.ProxyURL(proxyUrl)
+	return obj
+}
+
+//设置Socks代理
+func (obj *Http) SetProxySocks(ip string, port int64, name, password string) *Http {
+	host := fmt.Sprintf("%s:%d", ip, port)
+	var auth *proxy.Auth
+	if name != "" {
+		auth = &proxy.Auth{User: name, Password: password}
+	}
+	//forward := &net.Dialer{Timeout: 30 * time.Second, KeepAlive: 30 * time.Second}
+	dialer, err := proxy.SOCKS5("tcp", host, auth, proxy.Direct)
+	if err != nil {
+		obj.Errs = err
+		return obj
+	}
+	obj.Trans.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+		return dialer.Dial(network, addr)
+	}
+	return obj
 }
 
 //获取client
-func (*Http) getClient() *http.Client {
-	t := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	t.MaxIdleConns = 100 //连接池最大连接数量
-	// t.MaxConnsPerHost = 50     //每个host的最大连接数量，0表示不限制
-	t.MaxIdleConnsPerHost = 10 //每个host的连接池最大空闲连接数,默认2
-	return &http.Client{
-		Timeout:   3 * time.Second, //超时为3秒
-		Transport: t,
-	}
+func (obj *Http) getClient() *http.Client {
+	obj.Client.Transport = obj.Trans
+	return obj.Client
 }
 
 //http get请求
@@ -54,6 +110,9 @@ func (obj *Http) Post(url string, data map[string]interface{}, header map[string
 
 //http 通用请求
 func (obj *Http) Request(method, requestUrl string, data map[string]interface{}, header map[string]string) ([]byte, error) {
+	if obj.Errs != nil {
+		return nil, obj.Errs
+	}
 	method = strings.ToUpper(method)
 	client := obj.getClient()
 	var (

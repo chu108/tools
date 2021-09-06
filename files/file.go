@@ -3,7 +3,7 @@ package files
 import (
 	"bufio"
 	"bytes"
-	"github.com/chu108/tool2/str"
+	"github.com/chu108/tools/str"
 	"io"
 	"io/ioutil"
 	"os"
