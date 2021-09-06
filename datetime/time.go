@@ -1,4 +1,4 @@
-package date_time
+package datetime
 
 import (
 	"github.com/chu108/tool2/number"
