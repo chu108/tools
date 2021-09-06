@@ -1,2 +1,2 @@
-# tools
-工具库
+# tool2
+golang 常用工具函数

@@ -1,0 +1,79 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "9iUZ62bpwZedP0YhQTiIrZjRZck=",
+			"path": "github.com/PuerkitoBio/goquery",
+			"revision": "e11510b1149393940ea1ac1fdfeffcbd9619bd34",
+			"revisionTime": "2021-06-14T13:16:48Z"
+		},
+		{
+			"checksumSHA1": "mbsq22mWWILBR6NsNnwDiXbJaF8=",
+			"path": "github.com/andybalholm/cascadia",
+			"revision": "9bb392eb5b7df43ae2db1d0d60de2857188942a3",
+			"revisionTime": "2021-03-13T00:03:01Z"
+		},
+		{
+			"checksumSHA1": "+jg61qi/zxdDD2/OjY91Ld50i/k=",
+			"path": "github.com/json-iterator/go",
+			"revision": "e6b9536d3649bda3e8842bb7e4fab489d79a97ea",
+			"revisionTime": "2020-11-18T01:31:58Z"
+		},
+		{
+			"checksumSHA1": "ZTcgWKWHsrX0RXYVXn5Xeb8Q0go=",
+			"path": "github.com/modern-go/concurrent",
+			"revision": "bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94",
+			"revisionTime": "2018-03-06T01:26:44Z"
+		},
+		{
+			"checksumSHA1": "mVmAaF8ySbxQEMg88XxNNxFQea4=",
+			"path": "github.com/modern-go/reflect2",
+			"revision": "333559e1834b0c1840d283d79220bf121d704022",
+			"revisionTime": "2021-01-09T00:32:43Z"
+		},
+		{
+			"checksumSHA1": "bONEZcbkYKiPyABrecOLzHomjPU=",
+			"path": "golang.org/x/net/html",
+			"revision": "ca1201d0de80cfde86cb01aea620983605dfe99b",
+			"revisionTime": "2019-07-23T18:48:14Z"
+		},
+		{
+			"checksumSHA1": "XtSbs1gpyaEsIqf6VRhJsgOQe5U=",
+			"path": "golang.org/x/net/html/atom",
+			"revision": "ca1201d0de80cfde86cb01aea620983605dfe99b",
+			"revisionTime": "2019-07-23T18:48:14Z"
+		},
+		{
+			"checksumSHA1": "tqqo7DEeFCclb58XbN44WwdpWww=",
+			"path": "golang.org/x/text/encoding",
+			"revision": "342b2e1fbaa52c93f31447ad2c6abc048c63e475",
+			"revisionTime": "2018-12-15T17:52:45Z"
+		},
+		{
+			"checksumSHA1": "zeHyHebIZl1tGuwGllIhjfci+wI=",
+			"path": "golang.org/x/text/encoding/internal",
+			"revision": "342b2e1fbaa52c93f31447ad2c6abc048c63e475",
+			"revisionTime": "2018-12-15T17:52:45Z"
+		},
+		{
+			"checksumSHA1": "46UIK1h/DTupMdRnLkijrEIwzv4=",
+			"path": "golang.org/x/text/encoding/internal/identifier",
+			"revision": "342b2e1fbaa52c93f31447ad2c6abc048c63e475",
+			"revisionTime": "2018-12-15T17:52:45Z"
+		},
+		{
+			"checksumSHA1": "55UdScb+EMOCPr7OW0hCwDsVxpg=",
+			"path": "golang.org/x/text/encoding/simplifiedchinese",
+			"revision": "342b2e1fbaa52c93f31447ad2c6abc048c63e475",
+			"revisionTime": "2018-12-15T17:52:45Z"
+		},
+		{
+			"checksumSHA1": "R9iBDY+aPnT+8pyRcqGjXq5QixA=",
+			"path": "golang.org/x/text/transform",
+			"revision": "342b2e1fbaa52c93f31447ad2c6abc048c63e475",
+			"revisionTime": "2018-12-15T17:52:45Z"
+		}
+	],
+	"rootPath": "github.com/chu108/tool2"
+}
