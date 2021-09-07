@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/chu108/tools/files"
 	"golang.org/x/net/proxy"
+	"golang.org/x/net/publicsuffix"
 	"io"
 	"io/ioutil"
 	"net"
@@ -47,15 +48,27 @@ func NewHttp() *Http {
 }
 
 //设置cookie
-//全局设置：
-//os.Setenv("HTTP_PROXY", "http://127.0.0.1:9743")
-//os.Setenv("HTTPS_PROXY", "https://127.0.0.1:9743")
-func (obj *Http) SetCookieJar(jar *cookiejar.Jar) *Http {
+func (obj *Http) SetCookieJar(urlStr string, cookies []*http.Cookie) *Http {
+	cookiejarOptions := cookiejar.Options{
+		PublicSuffixList: publicsuffix.List,
+	}
+	jar, _ := cookiejar.New(&cookiejarOptions)
+	if urlStr != "" && cookies != nil && len(cookies) > 0 {
+		proxyUrl, err := url.Parse(urlStr)
+		if err != nil {
+			obj.Errs = err
+			return nil
+		}
+		jar.SetCookies(proxyUrl, cookies)
+	}
 	obj.Client.Jar = jar
 	return obj
 }
 
 //设置Http代理
+//全局设置：
+//os.Setenv("HTTP_PROXY", "http://127.0.0.1:9743")
+//os.Setenv("HTTPS_PROXY", "https://127.0.0.1:9743")
 func (obj *Http) SetProxyHttp(ip string, port int64) *Http {
 	host := fmt.Sprintf("http://%s:%d", ip, port)
 	proxyUrl, err := url.Parse(host)
@@ -164,6 +177,9 @@ func (obj *Http) Request(method, requestUrl string, data map[string]interface{},
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	//fmt.Println("req cookie:", obj.Client.Jar.Cookies(req.URL))
+	//fmt.Println("res cookie:", resp.Cookies())
 
 	return ioutil.ReadAll(resp.Body)
 }
