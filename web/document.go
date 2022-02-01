@@ -1,6 +1,9 @@
 package web
 
-import "github.com/PuerkitoBio/goquery"
+import (
+	"github.com/PuerkitoBio/goquery"
+	"strings"
+)
 
 type (
 	FO struct {
@@ -24,6 +27,11 @@ type (
 
 func NewDoc(doc *goquery.Document) *Doc {
 	return &Doc{doc, nil}
+}
+
+func NewDocByStr(str string) *Doc {
+	doc, err := goquery.NewDocumentFromReader(strings.NewReader(str))
+	return &Doc{doc, err}
 }
 
 // Find 根据规则查找
