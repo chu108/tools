@@ -3,7 +3,14 @@ package datetime
 import (
 	"github.com/chu108/tools/config"
 	"github.com/chu108/tools/number"
+	"log"
 	"time"
+)
+
+const (
+	LayoutDate     = "2006-01-02"
+	LayoutTime     = "15:04:05"
+	LayoutDateTime = "2006-01-02 15:04:05"
 )
 
 type Time struct {
@@ -13,14 +20,19 @@ func NewTime() *Time {
 	return &Time{}
 }
 
-// GetDate 返回年月日
-func (*Time) GetDate() string {
-	return time.Now().Format(config.LayoutDate)
+// GetStrDate 返回年月日
+func (*Time) GetStrDate() string {
+	return time.Now().Format(LayoutDate)
 }
 
-// GetTime 返回年月日时分秒
-func (*Time) GetTime() string {
-	return time.Now().Format(config.LayoutTime)
+// GetStrTime 返回年月日时分秒
+func (*Time) GetStrTime() string {
+	return time.Now().Format(LayoutTime)
+}
+
+// GetStrDateTime 返回年月日时分秒
+func (*Time) GetStrDateTime() string {
+	return time.Now().Format(LayoutDateTime)
 }
 
 // UnixToDateTime 时间戳转日期
@@ -52,4 +64,40 @@ func (*Time) RunTime(callback func()) time.Duration {
 	st := time.Now()
 	callback()
 	return time.Since(st)
+}
+
+func (*Time) GetLocal(local string) *time.Location {
+	l, err := time.LoadLocation(local)
+	if err != nil {
+		log.Fatal("GetLocal", err)
+		return &time.Location{}
+	}
+	return l
+}
+
+func (obj *Time) GetTimeByStr(str, local string) time.Time {
+	t, err := time.ParseInLocation(LayoutTime, str, obj.GetLocal(local))
+	if err != nil {
+		log.Fatal("GetTimeByStr", err)
+		return time.Time{}
+	}
+	return t
+}
+
+func (obj *Time) GetDateByStr(str, local string) time.Time {
+	t, err := time.ParseInLocation(LayoutDate, str, obj.GetLocal(local))
+	if err != nil {
+		log.Fatal("GetDateByStr", err)
+		return time.Time{}
+	}
+	return t
+}
+
+func (obj *Time) GetDateTimeByStr(str, local string) time.Time {
+	t, err := time.ParseInLocation(LayoutDateTime, str, obj.GetLocal(local))
+	if err != nil {
+		log.Fatal("GetDateTimeByStr", err)
+		return time.Time{}
+	}
+	return t
 }
