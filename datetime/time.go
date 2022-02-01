@@ -67,9 +67,12 @@ func (*Time) RunTime(callback func()) time.Duration {
 }
 
 func (*Time) GetLocal(local string) *time.Location {
+	if local == "" {
+		return time.UTC
+	}
 	l, err := time.LoadLocation(local)
 	if err != nil {
-		log.Fatal("GetLocal", err)
+		log.Fatal("GetLocal.err: ", err)
 		return &time.Location{}
 	}
 	return l
@@ -78,7 +81,7 @@ func (*Time) GetLocal(local string) *time.Location {
 func (obj *Time) GetTimeByStr(str, local string) time.Time {
 	t, err := time.ParseInLocation(LayoutTime, str, obj.GetLocal(local))
 	if err != nil {
-		log.Fatal("GetTimeByStr", err)
+		log.Fatal("GetTimeByStr.err: ", err)
 		return time.Time{}
 	}
 	return t
@@ -87,7 +90,7 @@ func (obj *Time) GetTimeByStr(str, local string) time.Time {
 func (obj *Time) GetDateByStr(str, local string) time.Time {
 	t, err := time.ParseInLocation(LayoutDate, str, obj.GetLocal(local))
 	if err != nil {
-		log.Fatal("GetDateByStr", err)
+		log.Fatal("GetDateByStr.err: ", err)
 		return time.Time{}
 	}
 	return t
@@ -96,7 +99,7 @@ func (obj *Time) GetDateByStr(str, local string) time.Time {
 func (obj *Time) GetDateTimeByStr(str, local string) time.Time {
 	t, err := time.ParseInLocation(LayoutDateTime, str, obj.GetLocal(local))
 	if err != nil {
-		log.Fatal("GetDateTimeByStr", err)
+		log.Fatal("GetDateTimeByStr.err: ", err)
 		return time.Time{}
 	}
 	return t

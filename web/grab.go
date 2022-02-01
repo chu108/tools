@@ -1,6 +1,7 @@
 package web
 
 import (
+	"errors"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"net/http"
@@ -17,15 +18,15 @@ func NewGrab() *Grab {
 func (obj *Grab) Fetch(url string) *Doc {
 	res, err := http.Get(url)
 	if err != nil {
-		panic(err)
+		return NewDocErr(nil, err)
 	}
 	if res.StatusCode != 200 {
-		panic(fmt.Sprintf("Fetch StatusCode:%d, err:%v", res.StatusCode, err))
+		return NewDocErr(nil, errors.New(fmt.Sprintf("Fetch StatusCode:%d, err:%v", res.StatusCode, err)))
 	}
 	defer res.Body.Close()
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
-		panic(err)
+		return NewDocErr(nil, err)
 	}
 	return NewDoc(doc)
 }

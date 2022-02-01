@@ -29,6 +29,10 @@ func NewDoc(doc *goquery.Document) *Doc {
 	return &Doc{doc, nil}
 }
 
+func NewDocErr(doc *goquery.Document, err error) *Doc {
+	return &Doc{doc, err}
+}
+
 func NewDocByStr(str string) *Doc {
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(str))
 	return &Doc{doc, err}
