@@ -99,8 +99,8 @@ func (obj *Http) SetProxySocks(ip string, port int64, name, password string) *Ht
 	return obj
 }
 
-//获取client
-func (obj *Http) getClient() *http.Client {
+//GetClient
+func (obj *Http) GetClient() *http.Client {
 	obj.Client.Transport = obj.Trans
 	return obj.Client
 }
@@ -121,7 +121,7 @@ func (obj *Http) Request(method, requestUrl string, data map[string]interface{},
 		return nil, obj.Errs
 	}
 	method = strings.ToUpper(method)
-	client := obj.getClient()
+	client := obj.GetClient()
 	var (
 		req  *http.Request
 		err  error

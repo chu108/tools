@@ -40,12 +40,15 @@ func NewDocByStr(str string) *Doc {
 
 // Find 根据规则查找
 func (obj *Doc) Find(selector string) *Sel {
+	if obj.Document == nil {
+		return NewSelErr(nil, ErrorNullDoc)
+	}
 	return NewSel(obj.Document.Find(selector))
 }
 
 // FindOneValues 获取匹配的值数组
 func (obj *Doc) FindOneValues(val FO) (ret []string, err error) {
-	if obj.Err != nil {
+	if obj.Err != nil || obj.Document == nil {
 		return nil, err
 	}
 	defer obj.Clear()
@@ -54,7 +57,7 @@ func (obj *Doc) FindOneValues(val FO) (ret []string, err error) {
 
 // FindMany 获取多个匹配的值，返回键值对
 func (obj *Doc) FindMany(val []FO) (retMap KV, err error) {
-	if obj.Err != nil {
+	if obj.Err != nil || obj.Document == nil {
 		return nil, err
 	}
 	defer obj.Clear()
@@ -74,22 +77,6 @@ func (obj *Doc) FindMany(val []FO) (retMap KV, err error) {
 	}
 	return
 }
-
-// FindManyValues 获取多个匹配的值，返回键与值数组
-//func (obj *Doc) FindManyValues(val []FM) (ret map[string][]string, err error) {
-//	if obj.Err != nil {
-//		return nil, err
-//	}
-//	defer obj.Clear()
-//	ret = make(map[string][]string, 0)
-//	for _, v := range val {
-//		ret[v.Key], err = obj.FindOneValues(FO{v.Selector, v.AttrType, v.AttrName})
-//		if err != nil {
-//			return nil, err
-//		}
-//	}
-//	return
-//}
 
 func (obj *Doc) Clear() {
 	obj = nil
