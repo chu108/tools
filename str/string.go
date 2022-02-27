@@ -70,36 +70,39 @@ func (*Str) SplitByNum(txt string, length int) []string {
 }
 
 //字符串转int
-func (*Str) ToInt(s string) (int, error) {
-	return strconv.Atoi(s)
+func (*Str) ToInt(s string) int {
+	i, _ := strconv.Atoi(s)
+	return i
 }
 
 //字符串转int64
-func (*Str) ToInt64(s string) (int64, error) {
-	return strconv.ParseInt(s, 10, 64)
+func (*Str) ToInt64(s string) int64 {
+	i, _ := strconv.ParseInt(s, 10, 64)
+	return i
 }
 
 //字符串转float
-func (*Str) ToFloat64(s string) (float64, error) {
-	return strconv.ParseFloat(s, 64)
+func (*Str) ToFloat64(s string) float64 {
+	i, _ := strconv.ParseFloat(s, 64)
+	return i
 }
 
 //时间戳字符串转日期字符串
-func (obj *Str) ToDateStr(t string) (string, error) {
-	i, err := obj.ToInt64(t)
-	if err != nil {
-		return "", err
+func (obj *Str) ToDateStr(t string) string {
+	i := obj.ToInt64(t)
+	if i != 0 {
+		return time.Unix(i, 0).Format(config.LayoutDate)
 	}
-	return time.Unix(i, 0).Format(config.LayoutDate), nil
+	return ""
 }
 
 //int字符串转时间字符串
-func (obj *Str) ToTimeStr(s string) (string, error) {
-	i, err := obj.ToInt64(s)
-	if err != nil {
-		return "", err
+func (obj *Str) ToTimeStr(s string) string {
+	i := obj.ToInt64(s)
+	if i != 0 {
+		return time.Unix(i, 0).Format(config.LayoutTime)
 	}
-	return time.Unix(i, 0).Format(config.LayoutTime), nil
+	return ""
 }
 
 //日期字符串转时间对象
