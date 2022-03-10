@@ -16,7 +16,7 @@ func (*Slice) StrToInt64(req []string) (res []int64) {
 	length := len(req)
 	res = make([]int64, 0, length)
 	for i := 0; i < length; i++ {
-		temp, _ := str.NewStr().ToInt64(req[i])
+		temp := str.NewStr().ToInt64(req[i])
 		res = append(res, temp)
 	}
 	return
