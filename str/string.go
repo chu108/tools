@@ -184,7 +184,7 @@ func (*Str) ReplacesIgnoreCase(text string, searchStrRepl ...string) string {
 	return buf.String()
 }
 
-// Enclose encloses search strings with open and close, case-insensitively.
+// EncloseIgnoreCase Enclose encloses search strings with open and close, case-insensitively.
 func (*Str) EncloseIgnoreCase(text, open, close string, searchStrs ...string) string {
 	buf := &bytes.Buffer{}
 	textLower := strings.ToLower(text)

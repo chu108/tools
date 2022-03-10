@@ -1,8 +1,8 @@
-package datetime
+package date
 
 import (
 	"github.com/chu108/tools/config"
-	"github.com/chu108/tools/number"
+	"github.com/chu108/tools/num"
 	"log"
 	"time"
 )
@@ -56,7 +56,7 @@ func (*Time) MilliSecondToDateTime(t int64) string {
 
 // SleepRange 随机睡眠指定范围毫秒
 func (*Time) SleepRange(max, min int) {
-	time.Sleep(time.Millisecond * time.Duration(number.NewRand().RandRange(min, max)))
+	time.Sleep(time.Millisecond * time.Duration(num.NewRand().RandRange(min, max)))
 }
 
 // RunTime 计算程序运行时间

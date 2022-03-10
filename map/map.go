@@ -1,4 +1,4 @@
-package hashmap
+package _map
 
 type Map struct {
 }

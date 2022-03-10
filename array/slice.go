@@ -1,7 +1,7 @@
 package array
 
 import (
-	"github.com/chu108/tools/number"
+	"github.com/chu108/tools/num"
 	"github.com/chu108/tools/str"
 )
 
@@ -46,7 +46,7 @@ func (*Slice) Int64ToStr(req []int64) (res []string) {
 	length := len(req)
 	res = make([]string, 0, length)
 	for i := 0; i < length; i++ {
-		res = append(res, number.NewNum().Int64ToStr(req[i]))
+		res = append(res, num.NewNum().Int64ToStr(req[i]))
 	}
 	return
 }
@@ -75,7 +75,7 @@ func (*Slice) IntToStr(req []int) (res []string) {
 	length := len(req)
 	res = make([]string, 0, length)
 	for i := 0; i < length; i++ {
-		res = append(res, number.NewNum().IntToStr(req[i]))
+		res = append(res, num.NewNum().IntToStr(req[i]))
 	}
 	return
 }
