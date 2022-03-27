@@ -11,50 +11,43 @@ import (
 	"strings"
 )
 
-type OS struct {
-}
-
-func NewOS() *OS {
-	return &OS{}
-}
-
 // IsWindows
-func (*OS) IsWindows() bool {
+func IsWindows() bool {
 	return "windows" == runtime.GOOS
 }
 
 // IsLinux
-func (*OS) IsLinux() bool {
+func IsLinux() bool {
 	return "linux" == runtime.GOOS
 }
 
 // IsDarwin
-func (*OS) IsDarwin() bool {
+func IsDarwin() bool {
 	return "darwin" == runtime.GOOS
 }
 
 // Pwd
-func (*OS) Pwd() string {
+func Pwd() string {
 	file, _ := exec.LookPath(os.Args[0])
 	pwd, _ := filepath.Abs(file)
 
 	return filepath.Dir(pwd)
 }
 
-func (obj *OS) Home() (string, error) {
+func Home() (string, error) {
 	user, err := user.Current()
 	if nil == err {
 		return user.HomeDir, nil
 	}
 	// cross compile support
-	if obj.IsWindows() {
-		return obj.homeWindows()
+	if IsWindows() {
+		return homeWindows()
 	}
 	// Unix-like system, so just assume Unix
-	return obj.homeUnix()
+	return homeUnix()
 }
 
-func (*OS) homeUnix() (string, error) {
+func homeUnix() (string, error) {
 	// First prefer the HOME environmental variable
 	if home := os.Getenv("HOME"); home != "" {
 		return home, nil
@@ -74,7 +67,7 @@ func (*OS) homeUnix() (string, error) {
 	return result, nil
 }
 
-func (*OS) homeWindows() (string, error) {
+func homeWindows() (string, error) {
 	drive := os.Getenv("HOMEDRIVE")
 	path := os.Getenv("HOMEPATH")
 	home := drive + path

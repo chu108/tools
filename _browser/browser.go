@@ -5,15 +5,8 @@ import (
 	"runtime"
 )
 
-type Browser struct {
-}
-
-func NewBrowser() *Browser {
-	return &Browser{}
-}
-
 //打开网页
-func (*Browser) OpenUrl(url string) (err error) {
+func OpenUrl(url string) (err error) {
 	switch runtime.GOOS {
 	case "windows": //windows
 		err = exec.Command(`cmd`, `/c`, `start`, url).Start()

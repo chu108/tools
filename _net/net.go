@@ -6,15 +6,8 @@ import (
 	"time"
 )
 
-type Net struct {
-}
-
-func NewNet() *Net {
-	return &Net{}
-}
-
 //tcp端口检测
-func (*Net) TcpGather(ip, port string) bool {
+func TcpGather(ip, port string) bool {
 	if ip == "" || port == "" {
 		return false
 	}
@@ -31,7 +24,7 @@ func (*Net) TcpGather(ip, port string) bool {
 	return false
 }
 
-func (*Net) LocalIP() (string, error) {
+func LocalIP() (string, error) {
 	addrs, err := net.InterfaceAddrs()
 
 	if nil != err {
@@ -48,7 +41,7 @@ func (*Net) LocalIP() (string, error) {
 	return "", errors.New("can't get local IP")
 }
 
-func (*Net) LocalMac() (string, error) {
+func LocalMac() (string, error) {
 	interfaces, err := net.Interfaces()
 	if err != nil {
 		return "", err

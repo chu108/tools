@@ -13,22 +13,15 @@ import (
 	"unsafe"
 )
 
-type Str struct {
-}
-
-func NewStr() *Str {
-	return &Str{}
-}
-
 //字符串转byte
-func (*Str) ToBytes(s string) []byte {
+func ToBytes(s string) []byte {
 	x := (*[2]uintptr)(unsafe.Pointer(&s))
 	h := [3]uintptr{x[0], x[1], x[1]}
 	return *(*[]byte)(unsafe.Pointer(&h))
 }
 
 //高效截取字符串
-func (*Str) SubStr(str string, length int) string {
+func SubStr(str string, length int) string {
 	var size, n int
 	for i := 0; i < length && n < len(str); i++ {
 		_, size = utf8.DecodeRuneInString(str[n:])
@@ -38,7 +31,7 @@ func (*Str) SubStr(str string, length int) string {
 }
 
 //字符串替换
-func (*Str) ReplaceEmpty(str string, rep ...string) string {
+func ReplaceEmpty(str string, rep ...string) string {
 	for i := 0; i < len(rep); i++ {
 		str = strings.Replace(str, rep[i], "", -1)
 	}
@@ -46,7 +39,7 @@ func (*Str) ReplaceEmpty(str string, rep ...string) string {
 }
 
 //字符串正则替换
-func (*Str) ReplaceRegexpStrEmpty(str string, math ...string) string {
+func ReplaceRegexpStrEmpty(str string, math ...string) string {
 	for i := 0; i < len(math); i++ {
 		rep := regexp.MustCompile(math[i])
 		str = strings.Replace(str, rep.FindString(str), "", -1)
@@ -55,7 +48,7 @@ func (*Str) ReplaceRegexpStrEmpty(str string, math ...string) string {
 }
 
 //字符串拆分，按字数
-func (*Str) SplitByNum(txt string, length int) []string {
+func SplitByNum(txt string, length int) []string {
 	txtRune := []rune(txt)
 	txtLen := len(txtRune)
 	retTxt := make([]string, 0, 5)
@@ -70,26 +63,26 @@ func (*Str) SplitByNum(txt string, length int) []string {
 }
 
 //字符串转int
-func (*Str) ToInt(s string) int {
+func ToInt(s string) int {
 	i, _ := strconv.Atoi(s)
 	return i
 }
 
 //字符串转int64
-func (*Str) ToInt64(s string) int64 {
+func ToInt64(s string) int64 {
 	i, _ := strconv.ParseInt(s, 10, 64)
 	return i
 }
 
 //字符串转float
-func (*Str) ToFloat64(s string) float64 {
+func ToFloat64(s string) float64 {
 	i, _ := strconv.ParseFloat(s, 64)
 	return i
 }
 
 //时间戳字符串转日期字符串
-func (obj *Str) ToDateStr(t string) string {
-	i := obj.ToInt64(t)
+func ToDateStr(t string) string {
+	i := ToInt64(t)
 	if i != 0 {
 		return time.Unix(i, 0).Format(_conf.LayoutDate)
 	}
@@ -97,8 +90,8 @@ func (obj *Str) ToDateStr(t string) string {
 }
 
 //int字符串转时间字符串
-func (obj *Str) ToTimeStr(s string) string {
-	i := obj.ToInt64(s)
+func ToTimeStr(s string) string {
+	i := ToInt64(s)
 	if i != 0 {
 		return time.Unix(i, 0).Format(_conf.LayoutTime)
 	}
@@ -106,7 +99,7 @@ func (obj *Str) ToTimeStr(s string) string {
 }
 
 //日期字符串转时间对象
-func (*Str) ToTime(s string) (time.Time, error) {
+func ToTime(s string) (time.Time, error) {
 	loc, err := time.LoadLocation("Local")
 	if err != nil {
 		return time.Time{}, err
@@ -115,7 +108,7 @@ func (*Str) ToTime(s string) (time.Time, error) {
 }
 
 //中文拼音排序
-func (*Str) PYSort(strArr []string) []string {
+func PYSort(strArr []string) []string {
 	enc := simplifiedchinese.GB18030.NewEncoder()
 	sort.Slice(strArr, func(i, j int) bool {
 		cnamei, _ := enc.String(strArr[i])
@@ -126,7 +119,7 @@ func (*Str) PYSort(strArr []string) []string {
 }
 
 // Contains determines whether the str is in the strs.
-func (*Str) Contains(str string, strs []string) bool {
+func Contains(str string, strs []string) bool {
 	for _, v := range strs {
 		if v == str {
 			return true
@@ -136,7 +129,7 @@ func (*Str) Contains(str string, strs []string) bool {
 }
 
 // ReplaceIgnoreCase replace searchStr with repl in the text, case-insensitively.
-func (*Str) ReplaceIgnoreCase(text, searchStr, repl string) string {
+func ReplaceIgnoreCase(text, searchStr, repl string) string {
 	buf := &bytes.Buffer{}
 	textLower := strings.ToLower(text)
 	searchStrLower := strings.ToLower(searchStr)
@@ -157,7 +150,7 @@ func (*Str) ReplaceIgnoreCase(text, searchStr, repl string) string {
 }
 
 // ReplacesIgnoreCase replace searchStr-repl pairs in the text, case-insensitively.
-func (*Str) ReplacesIgnoreCase(text string, searchStrRepl ...string) string {
+func ReplacesIgnoreCase(text string, searchStrRepl ...string) string {
 	if 1 == len(searchStrRepl)%2 {
 		return text
 	}
@@ -185,7 +178,7 @@ func (*Str) ReplacesIgnoreCase(text string, searchStrRepl ...string) string {
 }
 
 // EncloseIgnoreCase Enclose encloses search strings with open and close, case-insensitively.
-func (*Str) EncloseIgnoreCase(text, open, close string, searchStrs ...string) string {
+func EncloseIgnoreCase(text, open, close string, searchStrs ...string) string {
 	buf := &bytes.Buffer{}
 	textLower := strings.ToLower(text)
 	for i := 0; i < len(textLower); i++ {
