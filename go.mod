@@ -1,6 +1,6 @@
 module github.com/chu108/tools
 
-go 1.17
+go 1.21
 
 require (
 	github.com/PuerkitoBio/goquery v1.7.0
